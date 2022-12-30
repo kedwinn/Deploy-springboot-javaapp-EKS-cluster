@@ -29,7 +29,7 @@ pipeline {
             }
         }
         
-        stage ("docker push to ECR") {
+        stage ("docker push") {
          steps {
              script {
                 sh "aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 655140803907.dkr.ecr.eu-west-2.amazonaws.com"
@@ -38,5 +38,13 @@ pipeline {
              }
            }   
         }
-        
+               stage ("Kube Deploy") {
+            steps {
+                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', serverUrl: '') {
+                 sh "kubectl apply -f eks-deploy-k8s.yaml"
+                }
+            }
+        }
+    }
+}
  
