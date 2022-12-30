@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     environment {
-        registry = "211223789150.dkr.ecr.us-east-2.amazonaws.com/my-python-repo"
+        registry = "655140803907.dkr.ecr.eu-west-2.amazonaws.com/springboot-javawebapp:latest"
     }
     
     stages {
         stage('Checkout') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/akannan1087/myPythonDockerRepo']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/kedwinn/Deploy-springboot-javaapp-EKS-cluster']]])
             }
         }
     
@@ -23,8 +23,8 @@ pipeline {
         stage ("docker push") {
          steps {
              script {
-                sh "aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 211223789150.dkr.ecr.us-east-2.amazonaws.com"
-                sh "docker push 211223789150.dkr.ecr.us-east-2.amazonaws.com/my-python-repo"
+                sh "aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 655140803907.dkr.ecr.eu-west-2.amazonaws.com"
+                sh "docker push 655140803907.dkr.ecr.eu-west-2.amazonaws.com/springboot-javawebapp:latest"
                  
              }
            }   
