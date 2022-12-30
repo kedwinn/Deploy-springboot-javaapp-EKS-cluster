@@ -1,6 +1,9 @@
 pipeline {
     agent any
 
+        tools {
+            maven 'Maven3'
+        }
     environment {
         registry = "655140803907.dkr.ecr.eu-west-2.amazonaws.com/springboot-javawebapp:latest"
     }
@@ -11,6 +14,11 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/kedwinn/Deploy-springboot-javaapp-EKS-cluster']]])
             }
         }
+        
+          stage ('Build') {
+          steps {
+            sh 'mvn clean install'           
+            }
     
         stage ("Build image") {
             steps {
