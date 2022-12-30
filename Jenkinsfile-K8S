@@ -39,7 +39,7 @@ pipeline {
            }   
         }
         
-        stage ("KSS Deploy") {
+        stage ("K8S Deploy") {
             steps {
                 withKubeConfig(caCertificate: '', clusterName: '', : '', credentialsId: 'K8S', namespace: '', serverUrl: '') {
                  sh "kubectl apply -f eks-deploy-k8s.yaml"
