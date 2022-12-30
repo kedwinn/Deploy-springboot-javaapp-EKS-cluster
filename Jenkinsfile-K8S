@@ -5,7 +5,7 @@ pipeline {
             maven 'Maven3'
         }
     environment {
-        registry = "655140803907.dkr.ecr.eu-west-2.amazonaws.com/springboot-javawebapp:latest"
+        registry = "655140803907.dkr.ecr.eu-west-2.amazonaws.com/springboot-javaapp"
     }
     
     stages {
@@ -33,7 +33,7 @@ pipeline {
          steps {
              script {
                 sh "aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 655140803907.dkr.ecr.eu-west-2.amazonaws.com"
-                sh "docker push 655140803907.dkr.ecr.eu-west-2.amazonaws.com/springboot-javawebapp:latest"
+                sh "docker push 655140803907.dkr.ecr.eu-west-2.amazonaws.com/springboot-javaapp:latest"
                  
              }
            }   
